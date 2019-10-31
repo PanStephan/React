@@ -1,4 +1,4 @@
-*yarn run build
+#yarn run build
 
 
-*node dist/bundle.js
+#node dist/bundle.js
