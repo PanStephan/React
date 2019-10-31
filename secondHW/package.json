@@ -4,13 +4,8 @@
   "main": "main.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode-production",
-    "serve": "webpack --mode-development"
-  },
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ]
+    "build": "webpack --mode production",
+    "serve": "webpack --mode development"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -20,5 +15,8 @@
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0"
   }
 }
