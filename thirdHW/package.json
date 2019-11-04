@@ -8,6 +8,11 @@
     "serve": "webpack-dev-server --config webpack.dev.config.js --hot --watch",
     "precommit": "lint-staged"
   },
+  "husky": {
+    "hooks": {
+      "precommit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "src/**/*.js": [
       "eslint --fix",
