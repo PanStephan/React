@@ -1,5 +1,6 @@
 .app-list-item {
   font-size: 1.25rem;
+  position: relative;
 }
 
 .post-list-item__time {
@@ -16,7 +17,9 @@
 }
 .app-list-item button:focus {
     box-shadow: none;
-    outline: none;
+}
+.fa-pencil {
+    color: #000;
 }
 .app-list-item .btn-star {
     color: #FFD700;
