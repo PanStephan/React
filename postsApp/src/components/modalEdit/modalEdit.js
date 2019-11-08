@@ -8,17 +8,6 @@ export default class PostList extends React.Component {
     this.state = {
       text: ''
     }
-    this.onKeyPress = this.onKeyPress.bind(this)
-  }
-
-  // textValue() {
-  //   document.querySelector('#app-list-item-label').innerHTML = this.state.text;
-  // }
-
-  onKeyPress(event) {
-    if (event.key === 'Enter') {
-      // this.setState({text: event.target.value})
-    } 
   }
 
   render() {
@@ -27,7 +16,7 @@ export default class PostList extends React.Component {
     const id = this.props.id
     return (
       <div className={extModal}>
-        <Input type='text' className='modal__input' onKeyPress={this.onKeyPress} placeholder='change text' onChange={event => this.setState({ text: event.target.value})}></Input>
+        <Input type='text' className='modal__input' onKeyPress={(e) => {if( e.key === 'Enter') onUpdateLabel(id, this.state.text) }} placeholder='change text' onChange={event => this.setState({ text: event.target.value})}></Input>
         <Button color="primary" size="sm" outline onClick={()=>onUpdateLabel(id, this.state.text)}><i className="fa fa-send-o"></i></Button>
       </div>
     )

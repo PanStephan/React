@@ -16,7 +16,7 @@ module.exports = {
       ignored: /node_modules/
     },
     contentBase: path.join(__dirname, 'src'),
-    port: 8090,
+    port: 8070,
   },
   watchOptions: {
     ignored: /node_modules/

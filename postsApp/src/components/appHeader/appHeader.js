@@ -13,9 +13,6 @@ const DivHeader = styled.div`
   }
 `
 
-
-
-
 export default class AppHeader extends React.Component {
   constructor(props) {
     super(props)
