@@ -10,13 +10,16 @@ export default class PostList extends React.Component {
   }
 
   render() {
-    const {posts, onDelete} = this.props;
+    const {posts, onDelete, onToggleImportant, onToggleLiked, onUpdateLabel} = this.props;
     const elements = posts.map(item => {
       const{id, ...itemProps} = item;
       return (
         <ListGroupItem key={id} className='list-group-item'>
-          <PostListItem {...itemProps} 
-          onDelete={() => onDelete(id)}/>
+          <PostListItem {...item}
+          onDelete={() => onDelete(id)}
+          onToggleImportant={() => onToggleImportant(id)}
+          onToggleLiked={() => onToggleLiked(id)}
+          onUpdateLabel={onUpdateLabel}/>
         </ListGroupItem>
       )
     })

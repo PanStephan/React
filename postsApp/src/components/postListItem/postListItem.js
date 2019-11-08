@@ -22,27 +22,11 @@ export default class PostListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      important: false,
-      like: false,
       onOpenEdit: false,
       onOpenDelete: false
     }
-    this.onImportant = this.onImportant.bind(this);
-    this.onLike = this.onLike.bind(this);
     this.onOpenModalEdit = this.onOpenModalEdit.bind(this);
     this.onOpenModalDelete = this.onOpenModalDelete.bind(this)
-  }
-
-  onImportant() {
-    this.setState(({important}) => ({
-      important: !important
-    }));
-  }
-
-  onLike() {
-    this.setState(({like}) => ({
-      like: !like
-    }));
   }
 
   onOpenModalEdit() {
@@ -60,8 +44,8 @@ export default class PostListItem extends React.Component {
   }
 
   render() {
-    const {label, onDelete} = this.props;
-    const {important, like, onOpenEdit, onOpenDelete} = this.state
+    const {label, onDelete, onToggleImportant, onToggleLiked, important, like, onUpdateLabel, id} = this.props;
+    const {onOpenEdit, onOpenDelete} = this.state
     let classNames = 'app-list-item d-flex justify-content-between';
     let extModal = 'ext-modal';
     let modalDelete = 'modal-overlay'
@@ -69,16 +53,17 @@ export default class PostListItem extends React.Component {
     like ? classNames += ' like' : '';
     onOpenEdit ? extModal += ' ext-modal--open' : '';
     onOpenDelete ? modalDelete += ' modal-delete--open' : ''
+    console.log(id)
 
     return (
       <div className={classNames}>
         <div>
-          <SpanListItem id='app-list-item-label' onClick={this.onLike}>
+          <SpanListItem id='app-list-item-label' onClick={onToggleLiked}>
             {label}
           </SpanListItem>
           <DivListTime className="post-list-item__time">{new Date().toLocaleTimeString()}</DivListTime>
         </div>
-        <ModalEdit extModal={extModal}/>
+        <ModalEdit extModal={extModal} onUpdateLabel={onUpdateLabel} id={id}/>
         <ModalDelete modalDelete={modalDelete} onOpenModalDelete={this.onOpenModalDelete} onDelete={onDelete}/>
         <div className="d-flex justify-content-center align-items-center">
           <Button color="link" className='btn-pen' onClick={this.onOpenModalEdit}>
@@ -87,7 +72,7 @@ export default class PostListItem extends React.Component {
           <Button color="link"
           className="btn-star"
           size="sm"
-          onClick={this.onImportant}>
+          onClick={onToggleImportant}>
             <i className="fa fa-star"></i>
           </Button>
           <Button type="button" className="btn-trash" size="sm" color="link"
