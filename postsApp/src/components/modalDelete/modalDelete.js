@@ -20,10 +20,6 @@ const DivModalDelete = styled.div`
 `
 
 export default class ModalDelete extends React.Component {
-  constructor(props) {
-    super(props)
-
-  }
 
   render() {
     const {onDelete, modalDelete, onOpenModalDelete} = this.props

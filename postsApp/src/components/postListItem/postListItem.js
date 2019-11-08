@@ -19,23 +19,12 @@ const DivListTime = styled.div`
 `
 
 export default class PostListItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      onOpenEdit: false,
-      onOpenDelete: false
-    }
-    this.onOpenModalEdit = this.onOpenModalEdit.bind(this);
-    this.onOpenModalDelete = this.onOpenModalDelete.bind(this)
+  state = {
+    onOpenDelete: false,
+    onOpenEdit: false,
   }
 
-  onOpenModalEdit() {
-    this.setState(({onOpenEdit}) => ({
-      onOpenEdit: !onOpenEdit
-    }));
-  }
-
-  onOpenModalDelete() {
+  onOpenModalDelete = () => {
     this.setState(({onOpenDelete}) => (
       {
         onOpenDelete: !onOpenDelete
@@ -43,9 +32,15 @@ export default class PostListItem extends React.Component {
     ))
   }
 
+  onOpenModalEdit = () => {
+    this.setState(({onOpenEdit}) => ({
+      onOpenEdit: !onOpenEdit
+    }));
+  }
+
   render() {
-    const {label, onDelete, onToggleImportant, onToggleLiked, important, like, onUpdateLabel, id} = this.props;
-    const {onOpenEdit, onOpenDelete} = this.state
+    const {label, onDelete, createNewData, important, like, onUpdateLabel, id, time} = this.props;
+    const {onOpenDelete, onOpenEdit} = this.state
     let classNames = 'app-list-item d-flex justify-content-between';
     let extModal = 'ext-modal';
     let modalDelete = 'modal-overlay'
@@ -57,12 +52,12 @@ export default class PostListItem extends React.Component {
     return (
       <div className={classNames}>
         <div>
-          <SpanListItem id='app-list-item-label' onClick={onToggleLiked}>
+          <SpanListItem id='app-list-item-label' onClick={() => {createNewData(id)}}>
             {label}
           </SpanListItem>
-          <DivListTime className="post-list-item__time">{new Date().toLocaleTimeString()}</DivListTime>
+          <DivListTime className="post-list-item__time">{time}</DivListTime>
         </div>
-        <ModalEdit extModal={extModal} onUpdateLabel={onUpdateLabel} id={id}/>
+        <ModalEdit extModal={extModal} onUpdateLabel={onUpdateLabel} id={id} onOpenModalEdit={this.onOpenModalEdit} />
         <ModalDelete modalDelete={modalDelete} onOpenModalDelete={this.onOpenModalDelete} onDelete={onDelete}/>
         <div className="d-flex justify-content-center align-items-center">
           <Button color="link" className='btn-pen' onClick={this.onOpenModalEdit}>
@@ -71,7 +66,7 @@ export default class PostListItem extends React.Component {
           <Button color="link"
           className="btn-star"
           size="sm"
-          onClick={onToggleImportant}>
+          onClick={() => {createNewData(id, true)}}>
             <i className="fa fa-star"></i>
           </Button>
           <Button type="button" className="btn-trash" size="sm" color="link"

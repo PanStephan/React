@@ -13,38 +13,25 @@ const DivApp = styled.div`
 `
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openModal: false,
-      data : [
-        0,
-        null, 
-        [],
-        undefined, 
-        false,
-        {label: 'Going to learn react',important: false, like: false, id: 'cfvfv'},
-        {label: 'Going to leadcsdcrn react',important: false, like: false, id: 'csscv'},
-        {label: 'Going to learn react',important: false, like: false, id: 'cevw'}
-      ],
-      term: '',
-      filter: 'all',
-      text: ''
-    }
-    this.deleteItem = this.deleteItem.bind(this)
-    this.isObject = this.isObject.bind(this)
-    this.filterData = this.filterData.bind(this)
-    this.addItem = this.addItem.bind(this)
-    this.generateUUID = this.generateUUID.bind(this)
-    this.onToggleImportant = this.onToggleImportant.bind(this)
-    this.onUpdateSearch = this.onUpdateSearch.bind(this)
-    this.onToggleLiked = this.onToggleLiked.bind(this)
-    this.onFilterSelect = this.onFilterSelect.bind(this)
-    this.onUpdateLabel = this.onUpdateLabel.bind(this)
-    this.onLabelChachge = this.onLabelChachge.bind(this)
+
+  state = {
+    openModal: false,
+    data : [
+      0,
+      null, 
+      [],
+      undefined, 
+      false,
+      {label: 'Going to learn react',important: false, like: false, id: 'cfvfv', time:'1.1.1'},
+      {label: 'Going to leadcsdcrn react',important: false, like: false, id: 'csscv', time:'1.1.1'},
+      {label: 'Going to learn react',important: false, like: false, id: 'cevw', time:'1.1.1'}
+    ],
+    term: '',
+    filter: 'all',
+    text: '',
   }
 
-  searchPost(items, term) {
+  searchPost = (items, term) => {
     if (term.length === 0) {
       return items
     }
@@ -53,7 +40,7 @@ export default class App extends React.Component {
     }) 
   }
 
-  filterPost(items, filter) {
+  filterPost = (items, filter) => {
     if (filter === 'like') {
       return items.filter(el => el.like)
     } else {
@@ -61,19 +48,19 @@ export default class App extends React.Component {
     }
   }
 
-  isObject(obj) {
+  isObject = (obj) => {
     return obj != null && obj.constructor.name === 'Object'
   }
 
-  filterData(data) {
+  filterData = (data) => {
     return data.filter(el =>{return this.isObject(el)})
   }
 
-  generateUUID() {
+  generateUUID = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,(c,r)=>('x'==c?(r=Math.random()*16|0):(r&0x3|0x8)).toString(16))
   }
 
-  deleteItem(id) {
+  deleteItem = (id) => {
     this.setState(({data}) => {
       const clearData = this.filterData(data)
       const index = clearData.findIndex((el)=> el.id === id)
@@ -85,11 +72,12 @@ export default class App extends React.Component {
     })
   }
 
-  addItem(text) {
+  addItem = (text) => {
     const newItem = {
       label: text,
       import: false,
-      id: this.generateUUID()
+      id: this.generateUUID(),
+      time: new Date().toLocaleTimeString()
     }
 
     this.setState(({data}) => {
@@ -100,12 +88,14 @@ export default class App extends React.Component {
     })
   }
 
-  createNewData(item, id) {
+  createNewData = (id, important = false) => {
     this.setState(({data}) => {
       const clearData = this.filterData(data)
       const index = clearData.findIndex((el)=> el.id === id)
       const old = clearData[index]
-      const newItem = item == 'important' ? {...old, important: !old.important} : {...old, like: !old.like}
+      let newItem;
+      console.log(important)
+      important ? newItem = {...old, important: !old.important} : newItem = {...old, like: !old.like}
       const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
 
       return {
@@ -114,42 +104,38 @@ export default class App extends React.Component {
     })
   }
  
-  onToggleImportant(id) {
-    this.createNewData('important', id);
-  }
-
-  onUpdateSearch(term) {
+  onUpdateSearch = (term) => {
     this.setState({term})
   }
 
-  onUpdateLabel(id, label) {
-    this.setState(({data}) => {
-      const clearData = this.filterData(data)
-      const index = clearData.findIndex((el) => el.id === id)
-      const old = clearData[index]
-      const newItem = {...old, label: label}
-      const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
-
-      return {
-        data: newArr
-      }
-    })
+  onUpdateLabel = (id, label, onOpenModalEdit) => {
+    if(this.filterData(this.state.data).filter(el => el.label === label).length > 0) return 0
+    else {
+      this.setState(({data}) => {
+        const clearData = this.filterData(data)
+        const index = clearData.findIndex((el) => el.id === id)
+        const old = clearData[index]
+        const newItem = {...old, label: label}
+        const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
+        return {
+          data: newArr
+        }
+      })
+      onOpenModalEdit()
+    }
   }
 
-  onToggleLiked(id) {
-    this.createNewData('like', id);
-  }
-
-  onFilterSelect(filter) {
+  onFilterSelect = (filter) => { 
     this.setState({filter})
   }
 
-  onLabelChachge(text) {
+  onLabelChachge = (text) => {
     this.setState({text})
   }
 
   render() {
     const clearData = this.filterData(this.state.data)
+    const onOpenEdit = this.state.onOpenEdit
     const term = this.state.term;
     const filter = this.state.filter
     const liked = clearData.filter(el => {
@@ -171,10 +157,10 @@ export default class App extends React.Component {
           onFilterSelect={this.onFilterSelect}/>
         </div>
         <PostList posts={visiblePosts}
-        onDelete={this.deleteItem}
-        onToggleImportant={this.onToggleImportant}
-        onToggleLiked={this.onToggleLiked}
-        onUpdateLabel={this.onUpdateLabel}/>
+          onDelete={this.deleteItem}
+          onToggleImportant={this.onToggleImportant}
+          createNewData={this.createNewData}
+          onUpdateLabel={this.onUpdateLabel}/>
         <PostAddForm
         onAdd={this.addItem}/>
       </DivApp>

@@ -2,14 +2,11 @@ import React from 'react';
 import './post-status-filter.scss'
 
 export default class PostStatusFilter extends React.Component{
-  constructor(props) {
-    super(props)
-    this.buttons = [
-      {name: 'all', label: 'all'},
-      {name: 'like', label: 'liked'}
 
-    ]
-  }
+  buttons = [
+    {name: 'all', label: 'all'},
+    {name: 'like', label: 'liked'}
+  ]
 
   render() {
     const buttons = this.buttons.map(({name, label}) => {

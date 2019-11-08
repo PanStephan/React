@@ -9,22 +9,17 @@ const FormBottomPanel = styled.form`
 `
 
 export default class PostAddForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: ''
-    }
-    this.onValueChange = this.onValueChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+  state = {
+    text: ''
   }
 
-  onValueChange(e) {
+  onValueChange = (e) => {
     this.setState({
       text: e.target.value
     })
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault()
     if(this.state.text === '') return 0
     this.props.onAdd(this.state.text)
