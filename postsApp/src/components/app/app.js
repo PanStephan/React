@@ -100,13 +100,12 @@ export default class App extends React.Component {
     })
   }
 
-  onToggleImportant(id) {
+  createNewData(item, id) {
     this.setState(({data}) => {
       const clearData = this.filterData(data)
       const index = clearData.findIndex((el)=> el.id === id)
-      console.log(index)
       const old = clearData[index]
-      const newItem = {...old, important: !old.important}
+      const newItem = item == 'important' ? {...old, important: !old.important} : {...old, like: !old.like}
       const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
 
       return {
@@ -114,18 +113,21 @@ export default class App extends React.Component {
       }
     })
   }
+ 
+  onToggleImportant(id) {
+    this.createNewData('important', id);
+  }
 
   onUpdateSearch(term) {
     this.setState({term})
   }
 
-  onUpdateLabel(id) {
-    console.log(id)
+  onUpdateLabel(id, label) {
     this.setState(({data}) => {
       const clearData = this.filterData(data)
       const index = clearData.findIndex((el) => el.id === id)
       const old = clearData[index]
-      const newItem = {...old, label}
+      const newItem = {...old, label: label}
       const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
 
       return {
@@ -135,17 +137,7 @@ export default class App extends React.Component {
   }
 
   onToggleLiked(id) {
-    this.setState(({data}) => {
-      const clearData = this.filterData(data)
-      const index = clearData.findIndex((el)=> el.id === id)
-      const old = clearData[index]
-      const newItem = {...old, like: !old.like}
-      const newArr = [...clearData.slice(0, index), newItem,...clearData.slice(index + 1)];
-
-      return {
-        data: newArr
-      }
-    })
+    this.createNewData('like', id);
   }
 
   onFilterSelect(filter) {

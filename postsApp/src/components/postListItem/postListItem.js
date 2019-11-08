@@ -53,7 +53,6 @@ export default class PostListItem extends React.Component {
     like ? classNames += ' like' : '';
     onOpenEdit ? extModal += ' ext-modal--open' : '';
     onOpenDelete ? modalDelete += ' modal-delete--open' : ''
-    console.log(id)
 
     return (
       <div className={classNames}>

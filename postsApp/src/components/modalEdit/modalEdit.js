@@ -5,6 +5,9 @@ import { Button, Input } from 'reactstrap';
 export default class PostList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: ''
+    }
     this.onKeyPress = this.onKeyPress.bind(this)
   }
 
@@ -25,7 +28,7 @@ export default class PostList extends React.Component {
     return (
       <div className={extModal}>
         <Input type='text' className='modal__input' onKeyPress={this.onKeyPress} placeholder='change text' onChange={event => this.setState({ text: event.target.value})}></Input>
-        <Button color="primary" size="sm" outline onClick={onUpdateLabel(id)}><i className="fa fa-send-o"></i></Button>
+        <Button color="primary" size="sm" outline onClick={()=>onUpdateLabel(id, this.state.text)}><i className="fa fa-send-o"></i></Button>
       </div>
     )
   }
