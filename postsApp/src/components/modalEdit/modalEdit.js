@@ -8,10 +8,7 @@ export default class PostList extends React.Component {
     }
 
   render() {
-    const extModal = this.props.extModal;
-    const onUpdateLabel = this.props.onUpdateLabel
-    const onOpenModalEdit = this.props.onOpenModalEdit
-    const id = this.props.id
+    const {extModal, onUpdateLabel, onOpenModalEdit, id} = this.props
     return (
       <div className={extModal}>
         <Input type='text' className='modal__input' onKeyPress={(e) => {if( e.key === 'Enter'){ onUpdateLabel(id, this.state.text, onOpenModalEdit)}}} placeholder='change text' onChange={event => this.setState({ text: event.target.value})} value={this.state.text}></Input>
