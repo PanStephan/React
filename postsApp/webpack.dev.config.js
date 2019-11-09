@@ -11,6 +11,13 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '',
   },
+  devServer: {
+    watchOptions: {
+      ignored: /node_modules/
+    },
+    contentBase: path.join(__dirname, 'src'),
+    port: 8080,
+  },
   watchOptions: {
     ignored: /node_modules/
   },
