@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import './itemList.scss';
-export default class ItemList extends Component {
+export default class ItemList extends React.Component {
 
     render() {
         return (

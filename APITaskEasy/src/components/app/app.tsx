@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header/header';
 import RandomChar from '../randomChar/randomChar';

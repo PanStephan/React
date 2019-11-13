@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import './charDetails.scss';
 
-export default class CharDetails extends Component {
+export default class CharDetails extends React.Component {
     render() {
         return (
             <div className="char-details rounded">

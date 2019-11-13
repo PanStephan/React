@@ -8,7 +8,7 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
@@ -20,6 +20,13 @@ module.exports = {
   mode: 'development',
   module: {
     rules: [
+      {
+        test: /\.pug$/i,
+        use: {
+          loader: "pug-loader",
+          query: {}, 
+        }
+      },
       {
         test: /\.(sa|sc|c)ss$/, 
         use: [
@@ -33,15 +40,6 @@ module.exports = {
           name: '[name].[ext]',
           outputPath: 'fonts/'
         }
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'babel-loader',
-      },
-      {
-        test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre"
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -74,6 +72,6 @@ module.exports = {
       }
     }),
     new MinifyPlugin(),
-    new HtmlWebpackPlugin({ filename: `index.html`, template: 'src/views/index.html'})
+    new HtmlWebpackPlugin({ filename: `index.html`, template: 'src/views/index.pug'})
   ]
 }

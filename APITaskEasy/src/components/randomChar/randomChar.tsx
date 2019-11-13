@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import './randomChar.scss';
 
-export default class RandomChar extends Component {
+export default class RandomChar extends React.Component {
 
     render() {
 
