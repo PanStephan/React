@@ -2,7 +2,6 @@ export default class GotService {
   readonly apiBase: string = 'https://www.anapioficeandfire.com/api/'
 
   getRes = async (url: string) : Promise<any> => {
-    // не знаю, как тут быть в тс, у нас жу тип респонса должен быть обьекта, но компилятор ругается )
     const res = await fetch(`${this.apiBase+url}`)
     if(!res.ok) {
       throw new Error(`${res.status}`);
@@ -10,9 +9,8 @@ export default class GotService {
     return await res.json()
   }
 
-  // у меня что-то не получилось сделать все красиво циклом, на самом деле так и не понял почему так:/
   getAllCharecters = async () : Promise<any> => {
-    const res = await this.getRes(`characters?page=2&pageSize=10`)
+    const res = await this.getRes(`characters?page=4&pageSize=5`)
     return res.map(this._transformCharacter)
   }
 
@@ -22,7 +20,7 @@ export default class GotService {
   }
 
   getAllBooks = () : Promise<any> => {
-    return this.getRes(`books?page=2&pageSize=10`)
+    return this.getRes(`books?page=4&pageSize=5`)
   }
 
   getBooks = (id : number) : Promise<any> => {
@@ -30,7 +28,7 @@ export default class GotService {
   }
 
   getAllHouses = () : Promise<any> => {
-    return this.getRes(`houses?page=2&pageSize=10`)
+    return this.getRes(`houses?page=4&pageSize=5`)
   }
 
   getHouses = (id : number) : Promise<any> => {

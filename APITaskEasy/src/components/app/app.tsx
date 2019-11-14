@@ -1,50 +1,50 @@
 import * as React from 'react';
-import {Col, Row, Container, Button} from 'reactstrap';
+import {Col, Row, Container} from 'reactstrap';
 import Header from '../header/header';
 import RandomChar from '../randomChar/randomChar';
-import ItemList from '../itemList/itemList';
-import CharDetails from '../charDetails/charDetails';
+import CharacterPage from '../characterPage/characterPage'
+import ErrorMessage from './../errorMessage/errorMessage'
 
 interface IPropState {
-    showRandomChar: boolean
+	showRandomChar: boolean,
+	error: boolean
 }
 
 export default class App extends React.Component<any, IPropState>{
 
-    state : IPropState = {
-        showRandomChar: true
-    }
+	state = {
+		showRandomChar: true,
+		error: false
+	}
 
-    onClickButton = () => {
-        this.setState({showRandomChar: !this.state.showRandomChar})
-    }
+	componentDidCatch() {
+		this.setState({error: true})
+	}
 
-    render() {
+	onClickButton = () => {
+		this.setState({showRandomChar: !this.state.showRandomChar})
+	}
 
-        const randomChar = this.state.showRandomChar ? <RandomChar/> : null
+	render() {
 
-        return (
-            <> 
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Button onClick={this.onClickButton}>Delete Random char</Button>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {randomChar}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
-                </Container>
-            </>
-        )
-    }
+		const {showRandomChar, error} = this.state
+		if(error) return <ErrorMessage errStatus=''/>
+
+		return (
+			<> 
+				<Container>
+					{/* <Button onClick={this.onClickButton}>Delete Random char</Button> */}
+					<Header onClickButton={this.onClickButton}/>
+				</Container>
+				<Container>
+						<Row>
+							<Col lg={{size: 5, offset: 0}}>
+								{showRandomChar && <RandomChar/>}
+							</Col>
+						</Row>
+						<CharacterPage/>
+				</Container>
+			</>
+		)
+	}
 };

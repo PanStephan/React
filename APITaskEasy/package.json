@@ -8,7 +8,7 @@
     "serve": "webpack-dev-server --config webpack.dev.config.js --watch"
   },
   "lint-staged": {
-    "src/**/*.js": [
+    "src/**/*.{ts,js}": [
       "eslint --fix",
       "git add"
     ]
@@ -23,6 +23,8 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.7.0",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
     "autoprefixer": "^9.7.1",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
