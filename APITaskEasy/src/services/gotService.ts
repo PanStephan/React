@@ -1,4 +1,5 @@
 export default class GotService {
+  
   readonly apiBase: string = 'https://www.anapioficeandfire.com/api/'
 
   getRes = async (url: string) : Promise<any> => {
@@ -9,9 +10,9 @@ export default class GotService {
     return await res.json()
   }
 
-  getAllCharecters = async () : Promise<any> => {
+  getAllCharacters = async () : Promise<any> => {
     const res = await this.getRes(`characters?page=4&pageSize=5`)
-    return res.map(this._transformCharacter)
+    return res.map(el => this._transformCharacter(el))
   }
 
   getCharacter = async (id : number) : Promise<any> => {
@@ -19,49 +20,65 @@ export default class GotService {
     return this._transformCharacter(character)
   }
 
-  getAllBooks = () : Promise<any> => {
-    return this.getRes(`books?page=4&pageSize=5`)
+  getAllBooks = async () : Promise<any> => {
+    const res = await this.getRes(`books?page=1&pageSize=5`)
+    return res.map(el => this._transformBook(el))
   }
 
-  getBooks = (id : number) : Promise<any> => {
-    return this.getRes(`books/${id}`)
+  getBooks = async (id : number) : Promise<any> => {
+    const character = await this.getRes(`books/${id}`)
+    return this._transformBook(character)
   }
 
-  getAllHouses = () : Promise<any> => {
-    return this.getRes(`houses?page=4&pageSize=5`)
+  getAllHouses = async () : Promise<any> => {
+    const res = await this.getRes(`houses?page=4&pageSize=5`)
+    return res.map(el => this._transformHouses(el))
   }
 
-  getHouses = (id : number) : Promise<any> => {
-    return this.getRes(`houses/${id}`)
+  getHouses = async (id : number) : Promise<any> => {
+    const character = await this.getRes(`houses/${id}`)
+    return this._transformHouses(character)
+  }
+
+  _generateId = (item) => {
+    const regExp = /\/([0-9]*)$/
+		return item.url.match(regExp)[1]
+  }
+  
+  _isData = (data) => {
+    return data ? data : 'no data'
   }
 
   _transformCharacter(char : object) : object {
     return {
-      name: char.name,
-      gender: char.gender,
-      born: char.born,
-      died: char.died, 
-      culture: char.culture
+      id: this._generateId(char),
+      name: this._isData(char.name),
+      gender: this._isData(char.gender),
+      born: this._isData(char.born),
+      died: this._isData(char.died), 
+      culture: this._isData(char.culture),
     }
   }
 
   _transformHouses(house: object) : object {
     return {
-      name: house.name,
-      region: house.region,
-      words: house.words,
-      title: house.titles,
-      overlord: house.overlord,
-      ancestralWeapons: house.ancestralWeapons
+      id: this._generateId(house),
+      name: this._isData(house.name),
+      region: this._isData(house.region),
+      words: this._isData(house.words),
+      title: this._isData(house.titles),
+      overlord: this._isData(house.overlord),
+      ancestralWeapons: this._isData(house.ancestralWeapons),
     }
   }
 
-  transformBook(book : object) : object {
+  _transformBook(book : object) : object {
     return {
-      name: book.name,
-      numberOfPages: book.numberOfPages,
-      publiser: book.publiser,
-      released: book.released
+      id: this._generateId(book),
+      name: this._isData(book.name),
+      numberOfPages: this._isData(book.numberOfPages),
+      publiser: this._isData(book.publiser),
+      released: this._isData(book.released),
     }
   }
 

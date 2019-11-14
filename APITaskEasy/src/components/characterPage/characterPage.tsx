@@ -1,14 +1,19 @@
 import * as React from 'react'
-import {Col, Row} from 'reactstrap';
 import ItemList from '../itemList/itemList';
 import CharDetails from '../charDetails/charDetails';
 import ErrorMessage from '../errorMessage/errorMessage'
+import gotService from './../../services/gotService'
+import RowBlock from './../rowBlock/rowBlock'
 
 interface IPropState{
   selected: number,
   error: boolean
 }
+
+
 export default class characterPage extends React.Component<any, IPropState> {
+
+  gotService = new gotService()
 
   state = {
     selected: 125,
@@ -27,15 +32,19 @@ export default class characterPage extends React.Component<any, IPropState> {
 
     if(this.state.error) return <ErrorMessage errStatus=''/>
 
+    const itemList = (
+      <ItemList 
+      onCharSelected = {this.onCharSelected}
+      getData = {this.gotService.getAllCharacters}
+      renderData = {(item) => `${item.name}(${item.gender})`}/>
+    )
+
+    const charDetails = (
+      <CharDetails charId={this.state.selected}/>
+    )
+
     return (
-      <Row>
-        <Col md='6'>
-          <ItemList onCharSelected={this.onCharSelected}/>
-        </Col>
-        <Col md='6'>
-          <CharDetails charId={this.state.selected}/>
-        </Col>
-      </Row>
+      <RowBlock itemList={itemList} charDetails={charDetails} />
     )
   }
 }

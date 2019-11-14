@@ -4,6 +4,9 @@ import Header from '../header/header';
 import RandomChar from '../randomChar/randomChar';
 import CharacterPage from '../characterPage/characterPage'
 import ErrorMessage from './../errorMessage/errorMessage'
+import ItemList from '../itemList/itemList';
+import CharDetails from '../charDetails/charDetails';
+import gotService from './../../services/gotService'
 
 interface IPropState {
 	showRandomChar: boolean,
@@ -11,6 +14,8 @@ interface IPropState {
 }
 
 export default class App extends React.Component<any, IPropState>{
+
+	gotService = new gotService()
 
 	state = {
 		showRandomChar: true,
@@ -33,7 +38,6 @@ export default class App extends React.Component<any, IPropState>{
 		return (
 			<> 
 				<Container>
-					{/* <Button onClick={this.onClickButton}>Delete Random char</Button> */}
 					<Header onClickButton={this.onClickButton}/>
 				</Container>
 				<Container>
@@ -43,6 +47,24 @@ export default class App extends React.Component<any, IPropState>{
 							</Col>
 						</Row>
 						<CharacterPage/>
+						<Row>
+							<Col md='6'> 
+								<ItemList
+									getData={this.gotService.getAllBooks}
+									renderData = {(item) => item.name}/>
+							</Col>
+							<Col md='6'> 
+							</Col>
+						</Row>
+						<Row>
+							<Col md='6'> 
+								<ItemList 
+								getData={this.gotService.getAllHouses}
+								renderData = {(item) => item.name}/>
+							</Col>
+							<Col md='6'> 
+							</Col>
+						</Row>
 				</Container>
 			</>
 		)
