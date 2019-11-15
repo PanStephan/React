@@ -8,7 +8,7 @@
     "serve": "webpack-dev-server --config webpack.dev.config.js --watch"
   },
   "lint-staged": {
-    "*/**/*.{js,ts,tsx}": [
+    "*.{js,ts,tsx}": [
       "eslint --fix",
       "git add"
     ]
