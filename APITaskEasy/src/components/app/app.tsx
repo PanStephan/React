@@ -2,10 +2,10 @@ import * as React from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header/header';
 import RandomChar from '../randomChar/randomChar';
-import CharacterPage from '../characterPage/characterPage'
+import CharacterPage from '../pages/characterPage/characterPage'
+import BookPage from '../pages/booksPage/bookPage'
+import HousesPage from '../pages/housesPage/housesPage'
 import ErrorMessage from './../errorMessage/errorMessage'
-import ItemList from '../itemList/itemList';
-import CharDetails from '../charDetails/charDetails';
 import gotService from './../../services/gotService'
 
 interface IPropState {
@@ -47,7 +47,9 @@ export default class App extends React.Component<any, IPropState>{
 							</Col>
 						</Row>
 						<CharacterPage/>
-						<Row>
+						<BookPage/>
+						<HousesPage/>
+						{/* <Row>
 							<Col md='6'> 
 								<ItemList
 									getData={this.gotService.getAllBooks}
@@ -64,7 +66,7 @@ export default class App extends React.Component<any, IPropState>{
 							</Col>
 							<Col md='6'> 
 							</Col>
-						</Row>
+						</Row> */}
 				</Container>
 			</>
 		)

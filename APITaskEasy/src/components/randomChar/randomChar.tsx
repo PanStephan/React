@@ -24,7 +24,7 @@ export default class RandomChar extends React.Component<any, IPropState> {
 
 	componentDidMount() {
 		this.updateChar()
-		this.timerId = setInterval(this.updateChar, 1500)
+		this.timerId = setInterval(this.updateChar, 15000)
 	}
 
 	componentWillUnmount() {

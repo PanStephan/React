@@ -33,7 +33,7 @@ export default class ItemList extends React.Component<any, IPropState> {
 			return (
 				<li key={item.id}
 					className="list-group-item" 
-					onClick={() => {this.props.onCharSelected(item.id)}}
+					onClick={() => {this.props.onSelected(item.id)}}
 					>
 					{label}
 				</li>
