@@ -10,7 +10,7 @@ class GotService {
     return await res.json()
   }
 
-  getAllCharecters = () => {
+  getAllCharacters = () => {
     return this.getRes(`characters?page=5&pageSize=10`)
   }
 
@@ -20,7 +20,7 @@ class GotService {
 }
 
 const FirstGotService = new GotService()
-FirstGotService.getAllCharecters()
+FirstGotService.getAllCharacters()
   .then(res => {
     res.forEach(el => {
       console.log(el.name)
