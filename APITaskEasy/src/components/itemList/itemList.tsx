@@ -9,7 +9,6 @@ interface IPropState {
 }
 export default class ItemList extends React.Component<any, IPropState> {
 
-
 	state = {
 		itemList: null,
 		error: false
