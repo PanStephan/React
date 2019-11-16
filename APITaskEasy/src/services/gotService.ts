@@ -49,7 +49,7 @@ export default class GotService {
     return data ? data : 'no data'
   }
 
-  _transformCharacter(char : object) : object {
+  _transformCharacter(char : IPropChar) : object {
     return {
       id: this._generateId(char),
       name: this._isData(char.name),
@@ -60,7 +60,7 @@ export default class GotService {
     }
   }
 
-  _transformHouses(house: object) : object {
+  _transformHouses(house: IPropHouse) : object {
     return {
       id: this._generateId(house),
       name: this._isData(house.name),
@@ -72,7 +72,7 @@ export default class GotService {
     }
   }
 
-  _transformBook(book : object) : object {
+  _transformBook(book : IPropBook) : object {
     return {
       id: this._generateId(book),
       name: this._isData(book.name),
@@ -81,7 +81,28 @@ export default class GotService {
       released: this._isData(book.released),
     }
   }
+}
+interface IPropChar {
+  gender: string,
+  born: string,
+  died: string,
+  culture: string
+}
 
+interface IPropHouse {
+  name: string,
+  region: string,
+  words: string,
+  titles: string,
+  overlord: string,
+  ancestralWeapons: string
+}
+
+interface IPropBook {
+  name: string,
+  numberOfPages: string,
+  publiser: string,
+  released: string
 }
 
 
