@@ -65,7 +65,6 @@ export default class Details extends React.Component<any, IPropState> {
 
 	update = () => {
 		const {id, data} = this.props
-		console.log(id)
 		if(!id) return
 		data(id)
 			.then(res => {
@@ -83,7 +82,7 @@ export default class Details extends React.Component<any, IPropState> {
 		const {children, text} = this.props 
 		
 		if(!item) return <Spinner/>		
-		if(error) return <ErrorMessage errStatus=''/> 
+		if(error) return <ErrorMessage/> 
 
 		return (
 			<div className="item-details rounded">

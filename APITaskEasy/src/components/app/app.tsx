@@ -7,13 +7,27 @@ import BookPage from '../pages/booksPage/bookPage'
 import HousesPage from '../pages/housesPage/housesPage'
 import ErrorMessage from './../errorMessage/errorMessage'
 import gotService from './../../services/gotService'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import BooksItem from '../pages/booksPage/booksItem'
+import { number } from 'prop-types';
 
 interface IPropState {
 	showRandomChar: boolean,
 	error: boolean
 }
 
-export default class App extends React.Component<any, IPropState>{
+class RandBlock extends React.Component {
+	render() {
+		return (
+			<Row>
+				<Col lg={{size: 5, offset: 0}}>
+					{this.props.showRandomChar && <RandomChar/>}
+				</Col>
+			</Row>
+		)
+	}
+}
+export default class App extends React.Component<any, IPropState> {
 
 	gotService = new gotService()
 
@@ -33,42 +47,45 @@ export default class App extends React.Component<any, IPropState>{
 	render() {
 
 		const {showRandomChar, error} = this.state
-		if(error) return <ErrorMessage errStatus=''/>
+		if(error) return <ErrorMessage/>
 
 		return (
-			<> 
-				<Container>
-					<Header onClickButton={this.onClickButton}/>
-				</Container>
-				<Container>
-						<Row>
-							<Col lg={{size: 5, offset: 0}}>
-								{showRandomChar && <RandomChar/>}
-							</Col>
-						</Row>
-						<CharacterPage/>
-						<BookPage/>
-						<HousesPage/>
-						{/* <Row>
-							<Col md='6'> 
-								<ItemList
-									getData={this.gotService.getAllBooks}
-									renderData = {(item) => item.name}/>
-							</Col>
-							<Col md='6'> 
-							</Col>
-						</Row>
-						<Row>
-							<Col md='6'> 
-								<ItemList 
-								getData={this.gotService.getAllHouses}
-								renderData = {(item) => item.name}/>
-							</Col>
-							<Col md='6'> 
-							</Col>
-						</Row> */}
-				</Container>
-			</>
+			<Router> 
+				<div className='app'>
+					<Container>
+						<Header onClickButton={this.onClickButton}/>
+					</Container>
+					<Container>
+						<RandBlock showRandomChar={showRandomChar}/>
+						<Switch>
+							<Route path='/' exact component={() => <RandBlock showRandomChar={showRandomChar}/>}/>
+							<Route path='/characters' exact component={CharacterPage} />							
+							<Route path='/houses' exact component={HousesPage} />
+							<Route path='/books' exact component={BookPage} />
+							<Route path='/books/:id' exact render={
+								({match, location, history}) => { 
+									const {id} = match.params
+									return <BooksItem bookId={id}/>
+								}
+							}/>
+							<Route component={() => <NotFound errStatus='404'></NotFound>} />
+						</Switch>	
+					</Container>
+				</div>
+			</Router>
 		)
 	}
 };
+
+const NotFound = ({errStatus}) => {
+	return (
+		<>
+			<ErrorMessage errStatus={errStatus}/>
+			<Row>
+				<Col>
+					<Link className="text-white" to='/'>Back home</Link>
+				</Col>
+			</Row>
+		</>	
+	)
+}

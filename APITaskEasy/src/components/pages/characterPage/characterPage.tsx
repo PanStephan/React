@@ -23,17 +23,17 @@ export default class CharacterPage extends React.Component<any, IPropState> {
     this.setState({error: true})
   } 
 
-  onSelected = (id) => {
+  onItemSelected = (id) => {
     this.setState({selected: id})
   }
 
   render() {
 
-    if(this.state.error) return <ErrorMessage errStatus=''/>
+    if(this.state.error) return <ErrorMessage/>
 
     const itemList = (
       <ItemList 
-        onSelected = {this.onSelected}
+        onItemSelected = {this.onItemSelected}
         getData = {this.gotService.getAllCharacters}
         renderData = {(item) => `${item.name}(${item.gender})`}/>
     )
