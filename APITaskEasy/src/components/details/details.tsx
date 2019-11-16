@@ -3,6 +3,7 @@ import './details.scss';
 import gotService from '../../services/gotService'
 import ErrorMessage from '../errorMessage/errorMessage'
 import Spinner from '../spinner/spinner'
+import 'reactstrap';
 
 interface IPropState {
 	item: null,
@@ -79,8 +80,9 @@ export default class Details extends React.Component<any, IPropState> {
 
 	render() {
 		const {loading, item, error} = this.state
-		const {children, text} = this.props 
+		const {children, text, id} = this.props 
 		
+		if(id === null) return <h2 className='text-danger'>Choose Smth</h2>
 		if(!item) return <Spinner/>		
 		if(error) return <ErrorMessage/> 
 

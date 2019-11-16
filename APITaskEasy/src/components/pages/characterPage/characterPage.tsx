@@ -15,7 +15,7 @@ export default class CharacterPage extends React.Component<any, IPropState> {
   gotService = new gotService()
 
   state = {
-    selected: 125,
+    selected: null,
     error: false
   }
 

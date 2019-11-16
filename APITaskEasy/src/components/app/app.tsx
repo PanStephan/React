@@ -7,7 +7,7 @@ import BookPage from '../pages/booksPage/bookPage'
 import HousesPage from '../pages/housesPage/housesPage'
 import ErrorMessage from './../errorMessage/errorMessage'
 import gotService from './../../services/gotService'
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
 import BooksItem from '../pages/booksPage/booksItem'
 import { number } from 'prop-types';
 
@@ -68,7 +68,8 @@ export default class App extends React.Component<any, IPropState> {
 									return <BooksItem bookId={id}/>
 								}
 							}/>
-							<Route component={() => <NotFound errStatus='404'></NotFound>} />
+							<Route path='/404' component={() => <NotFound errStatus='404'></NotFound>} />
+							<Redirect from='*' to='/404' />
 						</Switch>	
 					</Container>
 				</div>

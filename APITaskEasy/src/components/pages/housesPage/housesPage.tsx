@@ -15,7 +15,7 @@ export default class HousesPage extends React.Component<any, IPropState> {
   gotService = new gotService()
 
   state = {
-    selected: 50,
+    selected: null,
     error: false
   }
 
