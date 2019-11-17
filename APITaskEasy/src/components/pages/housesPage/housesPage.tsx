@@ -15,7 +15,7 @@ export default class HousesPage extends React.Component<any, IPropState> {
   gotService = new gotService()
 
   state = {
-    selected: 50,
+    selected: null,
     error: false
   }
 
@@ -23,17 +23,17 @@ export default class HousesPage extends React.Component<any, IPropState> {
     this.setState({error: true})
   } 
 
-  onSelected = (id) => {
+  onItemSelected = (id) => {
     this.setState({selected: id})
   }
 
   render() {
 
-    if(this.state.error) return <ErrorMessage errStatus=''/>
+    if(this.state.error) return <ErrorMessage />
 
     const itemList = (
       <ItemList 
-        onSelected = {this.onSelected}
+        onItemSelected = {this.onItemSelected}
         getData = {this.gotService.getAllHouses}
         renderData = {(item) => `${item.name}`}/>
     )

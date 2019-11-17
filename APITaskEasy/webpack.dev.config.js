@@ -9,10 +9,13 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
-    publicPath: '',
+    publicPath: '/',
   },
   watchOptions: {
     ignored: /node_modules/
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   mode: 'development',
   resolve: {

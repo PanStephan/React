@@ -29,11 +29,12 @@ export default class ItemList extends React.Component<any, IPropState> {
 
 	renderItem = (arr) => {
 		return arr.map((item) => {
-			const label = this.props.renderData(item)
+			const {renderData, onItemSelected} = this.props
+			const label = renderData(item)
 			return (
 				<li key={item.id}
 					className="list-group-item" 
-					onClick={() => {this.props.onSelected(item.id)}}
+					onClick={() => {this.props.onItemSelected(item.id)}}
 					>
 					{label}
 				</li>
@@ -43,9 +44,9 @@ export default class ItemList extends React.Component<any, IPropState> {
 
 	render() {
 
-	const {itemList} = this.state
+	const {itemList, error} = this.state
 	if(!itemList) return <Spinner/>
-	if(this.state.error) return <ErrorMessage errStatus=''/>
+	if(error) return <ErrorMessage/>
 
 	return (
 		<ul className="item-list list-group">

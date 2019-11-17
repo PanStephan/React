@@ -1,28 +1,29 @@
 import * as React from 'react';
 import './header.scss'
 import {Button} from 'reactstrap';
+import {Link} from 'react-router-dom'
 
 export default class Header extends React.Component<any> {
 	render() {
 		return (
 			<div className='header-block '>
 				<h3 className='header-title'>
-					<a href="#">
+					<Link to='/'>
 					Game of Thrones DB
-					</a>
+					</Link>
 				</h3>
 				<ul className='header-links'>
 					<li>
 						<Button outline onClick={this.props.onClickButton}>Delete Random Char</Button>
 					</li>
 					<li>
-						<a href="#">Characters</a>
+						<Link to='/characters/'>Characters</Link>
 					</li>
 					<li>
-						<a href="#">Houses</a>
+						<Link to='/houses/'>Houses</Link>
 					</li>
 					<li>
-						<a href="#">Books</a>   
+						<Link to='/books/'>Books</Link>   
 					</li>
 				</ul>
 			</div>
