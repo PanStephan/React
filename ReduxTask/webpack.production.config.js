@@ -8,7 +8,7 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
@@ -16,6 +16,9 @@ module.exports = {
   },
   watchOptions: {
     ignored: /node_modules/
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
   },
   mode: 'development',
   module: {
@@ -27,7 +30,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
@@ -68,12 +71,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
-    new ImageminPlugin({
-      pngquant: {
-        quality: '95-100'
-      }
-    }),
+    // new ImageminPlugin({
+    //   pngquant: {
+    //     quality: '95-100'
+    //   }
+    // }),
     new MinifyPlugin(),
-    new HtmlWebpackPlugin({ filename: `index.html`, template: 'src/views/index.html'})
+    new HtmlWebpackPlugin({ filename: `index.html`, template: 'src/views/index.html'}),
   ]
 }
