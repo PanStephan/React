@@ -1,0 +1,18 @@
+.form__input {
+  width: 100%;
+  border: none;
+  padding: 7px 0 10px 5px;
+  border-bottom: 1px solid #000000;
+  background-color: #D7CAE8;
+  &::placeholder {
+    font-size: 18px;
+    color: #00000066;
+  }
+  margin-bottom: 7px;
+}
+
+.form-controllers {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 7px;
+}
