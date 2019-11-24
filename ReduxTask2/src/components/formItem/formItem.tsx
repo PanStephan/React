@@ -23,7 +23,6 @@ class FromItem extends React.Component<any, IPropFromItem> {
     if (!data) {
       return
     }
-    console.log(data)
     this.props.dispatch(addTodo(data))
     this.setState({data: null})
   }
