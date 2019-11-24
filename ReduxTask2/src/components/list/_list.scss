@@ -1,0 +1,11 @@
+.list-overflow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 25px 50px; 
+  width: 650px;
+  min-height: 300px;
+  background: #D7CAE8;
+  border-radius: 8px;
+}
