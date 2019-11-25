@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ListContainer from './listContainer/listContainer'
+import ListContainer from './containers/listContainer'
 
 const App = () => {
   return <ListContainer/>
