@@ -13,7 +13,7 @@ module.exports = {
   },
   watchOptions: {
     ignored: /node_modules/
-  },
+  }, 
   mode: 'development',
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"]
