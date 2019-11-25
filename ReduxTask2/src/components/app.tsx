@@ -1,8 +1,8 @@
 import * as React from 'react'
-import List from './list/list'
+import ListContainer from './containers/listContainer'
 
 const App = () => {
-  return <List/>
+  return <ListContainer/>
 }
 
 export default App

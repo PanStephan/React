@@ -2,18 +2,14 @@ import * as React from 'react'
 
 export default class ItemList extends React.Component<any> {
 
-  onListItemClick = () => {
-
-  }
-
   render() {
-    const{id, text, completed} = this.props
-    console.log(id)
+    const{text, toggleTodo, completed} = this.props
     return(
-      <div onClick={this.onListItemClick}>
-        <div className='item-list__text'>text</div>
+      <div >
+        <div onClick={toggleTodo} className={completed ? 'item-list__text--active item-list__text' : 'item-list__text'}>{text}</div>
         <span className='item-list__line'></span>
       </div>
     )
   }
 }
+

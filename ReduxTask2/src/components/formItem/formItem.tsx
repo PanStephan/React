@@ -1,13 +1,15 @@
 import * as React from 'react'
 import Button from '../button/button'
+import ButtonFilter from '../containers/filterContainer'
 import {connect} from 'react-redux'
 import {addTodo} from '../../actions'
+import { VisibilityFilters } from '../../actions'
 
-interface IPropFromItem {
+interface IPropFormItem {
   data: string
 }
 
-class FromItem extends React.Component<any, IPropFromItem> {
+class FormItem extends React.Component<any, IPropFormItem> {
 
   state = {
     data: null
@@ -23,7 +25,6 @@ class FromItem extends React.Component<any, IPropFromItem> {
     if (!data) {
       return
     }
-    console.log(data)
     this.props.dispatch(addTodo(data))
     this.setState({data: null})
   }
@@ -33,12 +34,12 @@ class FromItem extends React.Component<any, IPropFromItem> {
       <form onSubmit={this.onSubmitAdd}>
         <input type="text" className='form__input' placeholder='Enter a new todo item' onChange={this.onDataChange}/>
         <div className='form-controllers'>
-          <Button name={'btn-hide-item'} label={'Hide completed'}/>
-          <Button name={'btn-add-item'} label={'Add new'}/>
+          <ButtonFilter name={'btn-hide-item'} label={'Hide completed'} type={'button'} onClick={console.log('dd')}/>
+          <Button name={'btn-add-item'} label={'Add new'} type={'submit'}/>
         </div>
       </form>
     )
   }
 }
 
-export default connect()(FromItem)
+export default connect()(FormItem)
