@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.production.config.js",
-    "serve": "webpack-dev-server --config webpack.dev.config.js --watch",
-    "watch:frontend": "webpack --config webpack.production.config.js --watch",
-    "nodemon": "nodemon src/services/server.ts",
-    "startAll": "npm-run-all -p watch:frontend nodemon"
+    "serve": "webpack-dev-server --config webpack.dev.config.js --watch"
   },
   "husky": {
     "hooks": {
