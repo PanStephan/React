@@ -1,7 +1,8 @@
-import React from 'react';
-import * as cartIcon from './shopping-cart-solid.svg';
+import React from 'react'
+import * as cartIcon from './shopping-cart-solid.svg'
 import {Link} from 'react-router-dom'
-import './app-header.scss';
+import './app-header.scss'
+import {connect} from 'react-redux'
 
 const AppHeader = ({total}) => {
   return (
@@ -24,6 +25,13 @@ const AppHeader = ({total}) => {
       </Link>
     </header>
   )
-};
+}
 
-export default AppHeader;
+const mapStateToProps = ({total}) => {
+  return {
+    total
+  }
+}
+
+
+export default connect(mapStateToProps)(AppHeader)
