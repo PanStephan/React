@@ -9,7 +9,6 @@ import ErrorMessage from './../errorMessage/errorMessage'
 import gotService from './../../services/gotService'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
 import BooksItem from '../pages/booksPage/booksItem'
-import { number } from 'prop-types';
 
 interface IPropState {
 	showRandomChar: boolean,

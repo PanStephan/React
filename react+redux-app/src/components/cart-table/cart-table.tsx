@@ -3,23 +3,22 @@ import './cart-table.scss'
 import {connect} from 'react-redux'
 import {deleteFromCard} from '../../actions'
 
-const CartTable = ({items, deleteFromCard}) => {
-  let counter = 0
-  let titles = []
-  items.forEach(el => console.log(items.indexOf(el.title)))
-  
+const CartTable = ({menu, deleteFromCard}) => {
   return (
     <>
       <div className="cart__title">Ваш заказ:</div>
       <div className="cart__list">
         {
-          items.map(item => {
-            const {title, price, url, id} = item
+          menu.map(item => {
+            const {title, price, url, id, number, counter} = item
+            
             return (
               <div className="cart__item" key={id}>
+                <div>{number}</div>
                 <img src={url} className="cart__item-img" alt={title}></img>
                 <div className="cart__item-title">{title}</div>
-                <div className="cart__item-price">{price}$</div>
+                <span className='cart__item-counter'>{counter}</span>
+                <div className="cart__item-price">{price*counter}$</div>
                 <div onClick={deleteFromCard.bind(this, id)} className="cart__close">&times;</div>
               </div>
             )
@@ -30,9 +29,9 @@ const CartTable = ({items, deleteFromCard}) => {
   );
 };
 
-const mapStateToProps = ({items}) => {
+const mapStateToProps = ({menu}) => {
   return {
-    items
+    menu
   }
 }
 
